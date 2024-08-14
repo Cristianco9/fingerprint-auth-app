@@ -3,7 +3,7 @@ html {
 }
 
 .main-card {
-  background: linear-gradient(to top, #5E00A8, #9064ED);
+  background: linear-gradient(to top, #9064ED, #5E00A8);
   border-radius: 13px;
   display: flex;
   flex-direction: column;
