@@ -5,7 +5,7 @@ export default function Form() {
     <form className="login-form">
 
       <div className="login-form-main-container">
-        <h1 className="title">Bienvenido</h1>
+        <h1 className="title-welcome">Bienvenido</h1>
         <p className="sub-title">Por favor inicia sesión</p>
 
         <div className="fields-container">

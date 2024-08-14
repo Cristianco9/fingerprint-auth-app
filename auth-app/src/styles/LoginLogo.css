@@ -1,0 +1,38 @@
+html {
+  font-family: "Poppins", sans-serif;
+}
+
+.main-card {
+  background: linear-gradient(to top, #5E00A8, #9064ED);
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-name {
+  display: flex;
+  width: 300px;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  margin-top: -10px;
+}
+
+.logo-container {
+  width: 250px;
+  height: 250px;
+  background-color: #5E00A8;
+  border-radius: 13px;
+}
+
+@media (min-width: 400px) {
+
+  .main-card {
+    width: 350px;
+    height: 450px;
+  }
+}
