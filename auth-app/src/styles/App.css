@@ -1,0 +1,21 @@
+.main-cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 400px) {
+  .main-cards-container {
+    align-items: center;
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+
+@media (min-width: 800px) {
+  .main-cards-container {
+    flex-direction: row-reverse;
+    row-gap: gap;
+    gap: 7px;
+  }
+}
