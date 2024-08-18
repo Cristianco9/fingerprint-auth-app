@@ -32,6 +32,16 @@ export default function Form() {
     }
   };
 
+  const handleCloseModal = () => {
+    // Clear the form data
+    setFormData({
+      username: '',
+      password: '',
+    });
+    // Close the modal
+    setShowModal(false);
+  };
+
   return (
     <div>
       <form className="login-form" onSubmit={handleSubmit}>
@@ -67,7 +77,7 @@ export default function Form() {
         </div>
       </form>
 
-      {showModal && <LoginServerError />}
+      {showModal && <LoginServerError onClose={handleCloseModal} />}
     </div>
   );
 }
