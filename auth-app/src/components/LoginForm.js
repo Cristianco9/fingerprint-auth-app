@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/LoginForm.css';
+import FingerprintReader from './FingerprintReader';
 import LoginServerError from './LoginServerError';
-import { sendLoginRequest } from './api';
 
 export default function Form() {
   const [formData, setFormData] = useState({
@@ -23,6 +23,10 @@ export default function Form() {
     }));
   };
 
+  // State to track successful login
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState('');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowModal(false);
@@ -30,9 +34,13 @@ export default function Form() {
     try {
       const response = await submitLoginForm(formData);
 
-      // Handle success
-      // Add your success logic here
+      console.log(response);
 
+
+      if (response.success) {
+        setLoggedIn(true);
+        setToken(response.token);
+      }
 
 
     } catch (error) {
@@ -65,38 +73,42 @@ export default function Form() {
 
   return (
     <div>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="login-form-main-container">
-          <h1 className="title-welcome">Bienvenido</h1>
-          <p className="sub-title">Por favor inicia sesión</p>
+      {!loggedIn ? (
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="login-form-main-container">
+            <h1 className="title-welcome">Bienvenido</h1>
+            <p className="sub-title">Por favor inicia sesión</p>
 
-          <div className="fields-container">
-            <InputField
-              label="Usuario"
-              id="username"
-              value={formData.username}
-              placeholder="ingrese su usuario"
-              onChange={handleChange}
-            />
-            <InputField
-              label="Contraseña"
-              id="password"
-              type="password"
-              value={formData.password}
-              placeholder="ingrese su contraseña"
-              onChange={handleChange}
-            />
+            <div className="fields-container">
+              <InputField
+                label="Usuario"
+                id="username"
+                value={formData.username}
+                placeholder="ingrese su usuario"
+                onChange={handleChange}
+              />
+              <InputField
+                label="Contraseña"
+                id="password"
+                type="password"
+                value={formData.password}
+                placeholder="ingrese su contraseña"
+                onChange={handleChange}
+              />
+            </div>
+
+            <button type="button" className="forgot-password-btn">
+              Olvidé la contraseña
+            </button>
+
+            <button type="submit" className="sign-in-btn">
+              Ingresar
+            </button>
           </div>
-
-          <button type="button" className="forgot-password-btn">
-            Olvidé la contraseña
-          </button>
-
-          <button type="submit" className="sign-in-btn">
-            Ingresar
-          </button>
-        </div>
-      </form>
+        </form>
+      ) : (
+        <FingerprintReader token={token} /> // Render the FingerprintReader component
+      )}
 
       {showModal && (
         <LoginServerError
@@ -133,7 +145,7 @@ async function submitLoginForm(formData) {
   const signal = controller.signal;
 
   const timeoutId = setTimeout(() => {
-    throw new Error('Request timed out');
+    controller.abort();
   }, 5000);
 
   try {
@@ -145,9 +157,24 @@ async function submitLoginForm(formData) {
       throw response;
     }
 
-    return await response.json();
+    return response.json();
   } catch (error) {
     clearTimeout(timeoutId);
     throw error; // Rethrow the error to be caught by handleSubmit
   }
+}
+
+async function sendLoginRequest(formData, { signal }) {
+  const response = await fetch('http://192.168.101.2:3000/api/v1/readers/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'APIKey': '48fdd9794d35198c4867fb0180252908cc742b18835545d4342ae9544748aa0d'
+    },
+    body: JSON.stringify(formData),
+    mode: 'cors',
+    signal
+  });
+
+  return await response.json();
 }
