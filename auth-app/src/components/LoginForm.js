@@ -10,6 +10,10 @@ export default function Form() {
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [errorDetails, setErrorDetails] = useState({
+    title: '',
+    message: '',
+  });
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -24,11 +28,28 @@ export default function Form() {
     setShowModal(false);
 
     try {
-      await submitLoginForm(formData);
-      // Success authentication logic can go here
+      const response = await submitLoginForm(formData);
+
+      // Handle success
+      // Add your success logic here
+
+
+
     } catch (error) {
-      console.error('Error:', error);
-      setShowModal(true);
+      // Assuming error contains the JSON response from the server
+      if (error.statusCode === 404 && error.error === 'Not Found') {
+        setErrorDetails({
+          title: 'Datos incorrectos',
+          message: error.message, // Display message from server response
+        });
+        setShowModal(true);
+      } else if (error.statusCode === 401 && error.error === 'Unauthorized') {
+        setErrorDetails({
+          title: 'Datos incorrectos',
+          message: error.message, // Display message from server response
+        });
+        setShowModal(true);
+      }
     }
   };
 
@@ -77,7 +98,13 @@ export default function Form() {
         </div>
       </form>
 
-      {showModal && <LoginServerError onClose={handleCloseModal} />}
+      {showModal && (
+        <LoginServerError
+          title={errorDetails.title}
+          message={errorDetails.message}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 }
@@ -106,7 +133,6 @@ async function submitLoginForm(formData) {
   const signal = controller.signal;
 
   const timeoutId = setTimeout(() => {
-    controller.abort(); // Abort the request
     throw new Error('Request timed out');
   }, 5000);
 
@@ -116,7 +142,7 @@ async function submitLoginForm(formData) {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw response;
     }
 
     return await response.json();
