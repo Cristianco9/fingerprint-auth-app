@@ -3,7 +3,7 @@ import '../styles/LoginForm.css';
 import FingerprintReader from './FingerprintReader';
 import LoginServerError from './LoginServerError';
 
-export default function Form() {
+export default function Form({ setLoggedIn, loggedIn }) {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -15,6 +15,8 @@ export default function Form() {
     message: '',
   });
 
+  const [token, setToken] = useState('');
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -23,10 +25,6 @@ export default function Form() {
     }));
   };
 
-  // State to track successful login
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [token, setToken] = useState('');
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowModal(false);
@@ -34,17 +32,14 @@ export default function Form() {
     try {
       const response = await submitLoginForm(formData);
 
-      console.log(response);
-
-
       if (response.success) {
-        setLoggedIn(true);
-        setToken(response.token);
+        // Login was successful
+        setLoggedIn(true); // Update the App's state to indicate login success
+        setToken(response.token); // Store the token
       }
 
-
     } catch (error) {
-      // Assuming error contains the JSON response from the server
+
       if (error.statusCode === 404 && error.error === 'Not Found') {
         setErrorDetails({
           title: 'Datos incorrectos',
@@ -55,6 +50,12 @@ export default function Form() {
         setErrorDetails({
           title: 'Datos incorrectos',
           message: error.message, // Display message from server response
+        });
+        setShowModal(true);
+      } else {
+        setErrorDetails({
+          title: 'Error',
+          message: 'Servidor fuera de servicio. Por favor contacte a soporte.',
         });
         setShowModal(true);
       }
@@ -153,11 +154,13 @@ async function submitLoginForm(formData) {
 
     clearTimeout(timeoutId);
 
+    const data = await response.json();
+
     if (!response.ok) {
-      throw response;
+      throw data;
     }
 
-    return response.json();
+    return data
   } catch (error) {
     clearTimeout(timeoutId);
     throw error; // Rethrow the error to be caught by handleSubmit
@@ -176,5 +179,5 @@ async function sendLoginRequest(formData, { signal }) {
     signal
   });
 
-  return await response.json();
+  return response;
 }
