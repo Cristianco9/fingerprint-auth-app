@@ -22,13 +22,6 @@ html {
   margin-top: -10px;
 }
 
-.logo-container {
-  width: 250px;
-  height: 250px;
-  background-color: #5E00A8;
-  border-radius: 13px;
-}
-
 @media (min-width: 400px) {
 
   .main-card {

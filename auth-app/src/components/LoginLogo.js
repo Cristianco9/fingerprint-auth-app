@@ -1,3 +1,4 @@
+import Logo from './LogoLarge'
 import '../styles/LoginLogo.css';
 
 export default function LogoWelcome() {
@@ -6,11 +7,7 @@ export default function LogoWelcome() {
       <h1 className="title-name">
         I.E Nuestra Señora de Chiquinquirá
       </h1>
-      <div className="logo-container">
-        <picture className="logo">
-          <img src="" alt="Logo de una institución educativa"/>
-        </picture>
-      </div>
+      <Logo/>
     </div>
   );
 };

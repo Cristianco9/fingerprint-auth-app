@@ -1,0 +1,78 @@
+.header-container {
+  background: linear-gradient(to top, #9064ED, #5E00A8);
+  border-radius: 10px;
+  color: white;
+}
+
+.welcome-title {
+  font-weight: 600;
+  font-style: normal;
+  font-size: 34px;
+}
+
+
+.welcome-message {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 20px;
+}
+
+@media (min-width: 400px) {
+  .header-container {
+    width: 400px;
+    height: 350px;
+    display: flex;
+    flex-direction:column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .header-message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 580px;
+    gap: 5px;
+  }
+
+  .welcome-title {
+    text-align: center;
+    width: 390px;
+    margin: 0 auto 0 auto;
+  }
+
+  .welcome-message {
+    width: 330px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+  }
+}
+
+@media (min-width: 800px) {
+  .header-container {
+    width: 800px;
+    height: 155px;
+    display: flex;
+    flex-direction: row;
+    row-gap: gap;
+    gap: 9px;
+    justify-content: space-evenly;
+  }
+
+  .header-message-container {
+    width: 580px;
+  }
+
+  .welcome-title {
+    text-align: start;
+    margin: 20px 0 0 -140px;
+  }
+
+  .welcome-message {
+    width: 550px;
+    text-align: start;
+    margin: 10px 0 0 20px;
+  }
+}

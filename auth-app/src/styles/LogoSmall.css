@@ -1,0 +1,11 @@
+.logo-small-container {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  border-radius: 13px;
+  background-color: #5E00A8;
+}
+
+.logo {
+  margin: auto auto auto auto;
+}
