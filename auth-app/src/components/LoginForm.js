@@ -3,7 +3,7 @@ import '../styles/LoginForm.css';
 import FingerprintReader from './FingerprintReader';
 import LoginServerError from './LoginServerError';
 
-export default function Form({ setLoggedIn, loggedIn }) {
+export default function Form({ setLoggedIn, loggedIn, token, setToken }) {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -14,8 +14,6 @@ export default function Form({ setLoggedIn, loggedIn }) {
     title: '',
     message: '',
   });
-
-  const [token, setToken] = useState('');
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -34,8 +32,9 @@ export default function Form({ setLoggedIn, loggedIn }) {
 
       if (response.success) {
         // Login was successful
-        setLoggedIn(true); // Update the App's state to indicate login success
-        setToken(response.token); // Store the token
+        // Update the App's state to indicate login success
+        setLoggedIn(true);
+        setToken(response.token);
       }
 
     } catch (error) {

@@ -12,30 +12,6 @@
   row-gap: row;
 }
 
-.current-date-container {
-  background-color: white;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  row-gap: row;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-}
-
-.current-date {
-  font-weight: 600;
-  font-style: normal;
-  font-size: 30px;
-}
-
-.current-date-value {
-  font-weight: 600;
-  font-style: normal;
-  font-size: 30px;
-  color: #5E00A8;
-}
-
 .auth-body-container {
   background-color: white;
   border-radius: 10px;
@@ -59,11 +35,6 @@
     height: 800px;
   }
 
-  .current-date-container {
-    width: 400px;
-    height: 50px;
-  }
-
   .auth-body-container {
     width: 400px;
     height: 500px;
@@ -80,11 +51,6 @@
   .auth-main-container {
     width: 800px;
     height: 800px;
-  }
-
-  .current-date-container {
-    width: 800px;
-    height: 50px;
   }
 
   .auth-body-container {

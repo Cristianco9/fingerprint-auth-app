@@ -1,6 +1,7 @@
 import '../styles/FingerprintReader.css';
-import FingerprintIcon from './FingerprintIcon.js';
 import Header from './Header.js';
+import CurrentTime from './CurrentTime.js';
+import FingerprintIcon from './FingerprintIcon.js';
 
 export default function FingerprintReader() {
 
@@ -8,11 +9,7 @@ export default function FingerprintReader() {
     <div className="auth-main-container">
 
         <Header />
-
-        <section className="current-date-container">
-          <h3 className="current-date">Hora:</h3>
-          <h3 className="current-date-value">05:50 am</h3>
-        </section>
+        <CurrentTime />
 
         <section className="auth-body-container">
 
