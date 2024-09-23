@@ -111,7 +111,7 @@ export default function FingerprintReaderFn() {
 }
 */
 
-import { FingerprintsReader, SampleFormat, DeviceConnected, DeviceDisconnected } from '@digitalpersona/services';
+import { FingerprintReader, SampleFormat } from '@digitalpersona/devices';
 
 const FingerprintTest = () => {
     const [status, setStatus] = useState('No device connected');
@@ -120,7 +120,7 @@ const FingerprintTest = () => {
 
     // Function to check if the device is connected
     const checkDeviceConnection = () => {
-        const reader = new FingerprintsReader();
+        const reader = new FingerprintReader();
 
         reader.onDeviceConnected = (event) => {
             setStatus('Fingerprint reader connected: ' + event.device.id);
@@ -141,7 +141,7 @@ const FingerprintTest = () => {
 
     // Function to capture the fingerprint
     const captureFingerprint = () => {
-        const reader = new FingerprintsReader();
+        const reader = new FingerprintReader();
 
         reader.capture(SampleFormat.PngImage)
             .then((sample) => {
